@@ -1,37 +1,20 @@
 pipeline {
-    agent any
-   stages {
-       stage('container remove') {
+    agent any 
+    stages {
+        stage('container remove') {
             steps {
                 sh 'docker container rm -f be'
             }
         }
-       stage('Docker Build') {
+        stage('Build') {
             steps {
                 sh 'cd LMS-BE && docker build -t backend .'
             }
         }
-        stage('Docker container') {
+        stage('run') {
             steps {
-                sh 'docker container run -dt --name be -p 9090:8080 backend'
+                sh 'docker run -dt --name lmsbe -p 8080:8080 backend'
             }
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
