@@ -3,7 +3,7 @@ pipeline {
    stages {
        stage('container remove') {
             steps {
-                sh 'docker container rm -rf be'
+                sh 'docker container rm -f be'
             }
         }
        stage('Docker Build') {
