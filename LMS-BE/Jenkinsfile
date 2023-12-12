@@ -1,25 +1,38 @@
 pipeline {
     agent any
-    stages{
-        stage('Docker build') {
+   stages {
+       stage('Docker db') {
             steps {
-                sh 'sudo docker rmi -f backend'
-                sh 'cd LMS-BE && sudo docker build -t backend .'
-            }
-          }
-        stage('Docker container') {
-            steps {
-                sh 'sudo docker container rm -f be'
-                sh 'sudo docker container run -dt --name be -p 8081:8080 backend'
+                sh 'docker container run -dt --name lmsdb -e MYSQL_ROOT_PASSWORD=Qwerty@123 -p 3309:3306 mysql:latest'
             }
         }
-        stage('Docker') {
+       stage('Docker Build') {
             steps {
-                sh 'echo deployment done'
-               }
-          }
+                sh 'cd LMS-BE && docker build -t backend .'
+            }
+        }
+        stage('container remove') {
+            steps {
+                sh 'docker container rm -f be'
+            }
+        }
+        stage('Docker container') {
+            steps {
+                sh 'docker container run -dt --name be -p 9090:8080 backend'
+            }
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
