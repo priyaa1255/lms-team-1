@@ -1,14 +1,14 @@
 pipeline {
     agent any
    stages {
+       stage('container remove') {
+            steps {
+                sh 'docker container rm -f be'
+            }
+        }
        stage('Docker Build') {
             steps {
                 sh 'cd LMS-BE && docker build -t backend .'
-            }
-        }
-        stage('container remove') {
-            steps {
-                sh 'docker container rm -f be'
             }
         }
         stage('Docker container') {
