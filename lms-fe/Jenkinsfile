@@ -1,0 +1,71 @@
+pipeline {
+    agent any
+    
+    environment {
+        DOCKER_IMAGE = 'frontend-app'
+        NPM_REGISTRY = 'https://registry.npmjs.org/' // Your npm registry if applicable
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from your version control system (e.g., Git)
+                git branch: 'dev', url: 'https://github.com/priyaa1255/lms-team-1.git'
+            }
+        }
+        
+        stage('Install Dependencies') {
+            steps {
+                // Install npm dependencies
+                sh 'npm install'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                // Build your frontend application
+                sh 'npm run build'
+            }
+        }
+        
+        stage('Docker Build') {
+            steps {
+                // Build Docker image with Nginx and the frontend app
+                script {
+                    docker.build(DOCKER_IMAGE, '-f Dockerfile.prod .')
+                }
+            }
+        }
+        
+        stage('Docker Push') {
+            steps {
+                // Push the Docker image to a registry (if needed)
+                script {
+                    docker.withRegistry('https://your-docker-registry.com', 'docker-credentials') {
+                        docker.image(DOCKER_IMAGE).push()
+                    }
+                }
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                // Deploy the Docker image (e.g., to a server, Kubernetes, etc.)
+                // Example: Run the Docker container on a server
+                sh 'docker run -d -p 80:80 --name frontend-app-container frontend-app'
+            }
+        }
+    }
+    
+    post {
+        success {
+            // Actions to perform when the pipeline succeeds (e.g., notifications, cleanup)
+            echo 'Frontend build and deployment successful!'
+        }
+        
+        failure {
+            // Actions to perform when the pipeline fails (e.g., notifications, cleanup)
+            echo 'Frontend build or deployment failed!'
+        }
+    }
+}
