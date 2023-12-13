@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('docker build') {
+            steps {
+                sh 'cd lms-fe/lmsv1 && docker build -t frontend .'
+            }
+        }
+    stage(docker run') {
+        steps {
+            sh 'docker container run -dt --name fe -p 80:80 backend'
+            }
+        }
+   }
+}
