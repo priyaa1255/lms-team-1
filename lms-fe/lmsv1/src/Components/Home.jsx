@@ -7,7 +7,7 @@ const Home = () => {
 
   const handleButtonClick = async () => {
     try {
-      const response = await axios.get("http://3.93.217.126:9090/login");
+      const response = await axios.get("http://3.93.217.126:9090/user/login");
       console.log(response);
       setMessage(response.data);
     } catch (error) {
