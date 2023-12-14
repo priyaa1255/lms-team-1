@@ -3,13 +3,13 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'sudo rmi -f backend'
-                sh 'cd LMS-BE && docker build -t backend .'
+                sh 'sudo docker rmi -f backend'
+                sh 'cd LMS-BE && sudo docker build -t backend .'
             }
         }
         stage('run') {
             steps {
-                sh 'docker run -dt --name lmsbe -p 9090:8080 backend'
+                sh 'sudo docker run -dt --name lmsbe -p 9090:8080 backend'
             }
         }
     }
