@@ -19,7 +19,7 @@ pipeline {
          }
           stage ('docker run') {
             steps {
-              sh 'docker container run -dt --name fe -p 80:80 backend'
+              sh 'docker container run -dt --name fe -p 80:80 frontend'
             }
         }
     }
