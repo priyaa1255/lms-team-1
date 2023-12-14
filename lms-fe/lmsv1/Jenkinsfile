@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage ('Checkout') {
             steps {
+                // Checkout the source code from your version control system (e.g., Git)
                 sh 'echo checkout SCM'
             }
         }
@@ -13,12 +14,12 @@ pipeline {
         }
         stage ('Docker Build') {
             steps {
-                sh 'cd lms-fe/lmsv1 && docker build -t frontend .'
+                sh 'cd lms-team-1-praneeth/LMS-FE && docker build -t frontend .'
             }
-         }
-        stage ('docker run') {
+        }
+        stage ('container') {
             steps {
-                sh 'docker container run -dt --name fe -p 80:80 frontend'
+                sh 'docker run -dt --name fe -p 80:80 frontend'
             }
         }
     }
