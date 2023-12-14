@@ -14,12 +14,12 @@ pipeline {
         }
         stage ('Docker Build') {
             steps {
-                sh 'cd lms-team-1-praneeth/LMS-FE && docker build -t frontend .'
+                 sh 'cd lms-fe/lmsv1 && docker build -t frontend .'
             }
          }
-          stage ('container') {
+          stage ('docker run') {
             steps {
-              sh 'docker run -dt --name fe -p 80:80 frontend'
+              sh 'docker container run -dt --name fe -p 80:80 backend'
             }
         }
     }
