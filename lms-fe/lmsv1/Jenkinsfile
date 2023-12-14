@@ -12,5 +12,5 @@ pipeline {
             sh 'docker container run -dt --name fe -p 80:80 backend'
             }
         }
-   }
-}
+     }
+  }
