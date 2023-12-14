@@ -3,12 +3,12 @@ pipeline {
     stages {
         stage ('Docker Build') {
             steps {
-                sh 'cd lms-fe/lmsv1 && docker build -t frontend .'
+                sh 'cd lms-fe/lmsv1 && sudo docker build -t frontend .'
             }
         }
         stage ('docker run') {
             steps {
-                sh 'docker container run -dt --name fe -p 80:80 frontend'
+                sh 'sudo docker container run -dt --name fe -p 80:80 frontend'
             }
         }
     }
