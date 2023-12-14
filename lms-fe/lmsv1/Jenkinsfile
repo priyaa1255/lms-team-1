@@ -7,11 +7,6 @@ pipeline {
                 sh 'echo checkout SCM'
             }
         }
-        stage ('remove container') {
-            steps {
-                sh 'docker container rm -f fe'
-            }
-        }
         stage ('Docker Build') {
             steps {
                 sh 'cd lms-fe/lmsv1 && docker build -t frontend .'
