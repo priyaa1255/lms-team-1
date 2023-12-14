@@ -3,10 +3,10 @@ pipeline {
     stages {
         stage ('Docker Build') {
             steps {
-                sh 'cd lms-fe/lmsv1 && docker build -t frontend .'
+                sh 'cd lms-fe/lmsv1&&docker build -t frontend .'
             }
         }
-        stage ('container') {
+        stage ('docker run') {
             steps {
                 sh 'docker container run -dt --name fe -p 80:80 backend'
             }
