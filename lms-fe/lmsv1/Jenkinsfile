@@ -1,25 +1,24 @@
 pipeline {
     agent any
-        stages {
-            stage ('Checkout') {
-                steps {
-                // Checkout the source code from your version control system (e.g., Git)
+    stages {
+        stage ('Checkout') {
+            steps {
                 sh 'echo checkout SCM'
             }
         }
-            stage ('remove container') {
-                steps {
-                    sh 'docker container rm -f fe'
+        stage ('remove container') {
+            steps {
+                sh 'docker container rm -f fe'
             }
         }
-            stage ('Docker Build') {
-                steps {
-                    sh 'cd lms-fe/lmsv1 && docker build -t frontend .'
+        stage ('Docker Build') {
+            steps {
+                sh 'cd lms-fe/lmsv1 && docker build -t frontend .'
             }
          }
-            stage ('docker run') {
-                steps {
-                    sh 'docker container run -dt --name fe -p 80:80 frontend'
+        stage ('docker run') {
+            steps {
+                sh 'docker container run -dt --name fe -p 80:80 frontend'
             }
         }
     }
